@@ -9,6 +9,8 @@ import {
   Image as ImageIcon,
   ChevronLeft,
   ChevronRight,
+  Sun,
+  Moon,
 } from "lucide-react";
 import starImage from "../img/star.png";      // ✅ graphic image
 import paintImage from "../img/paint.jpg";    // ✅ new graphic image (second box)
@@ -49,11 +51,11 @@ const projects = [
   },
 ];
 
-// 6 graphic slots – star in most, paint.jpg in second box
+// 6 graphic slots
 const graphicImages = [
   starImage,   // 1st
-  paintImage,  // 2nd ✅
-  QuatreImage,   // 3rd
+  paintImage,  // 2nd
+  QuatreImage, // 3rd
   LogoImage,   // 4th
   starImage,   // 5th
   starImage,   // 6th
@@ -61,6 +63,9 @@ const graphicImages = [
 
 export default function PortfolioLanding() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+
+  // Dark / light theme
+  const [isDark, setIsDark] = useState(true);
 
   // Graphic modal state
   const [isGraphicModalOpen, setIsGraphicModalOpen] = useState(false);
@@ -101,15 +106,29 @@ export default function PortfolioLanding() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 py-10 font-[Poppins,sans-serif]">
+    <div
+      className={`min-h-screen flex items-center justify-center px-4 py-10 font-[Poppins,sans-serif] ${
+        isDark ? "bg-slate-950 text-slate-100" : "bg-slate-100 text-slate-900"
+      }`}
+    >
       {/* Outer glowing card */}
-      <div className="w-full max-w-6xl overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-900/80 shadow-[0_0_80px_rgba(56,189,248,0.35)] backdrop-blur-xl">
+      <div
+        className={`w-full max-w-6xl overflow-hidden rounded-3xl border backdrop-blur-xl ${
+          isDark
+            ? "border-slate-800/80 bg-slate-900/80 shadow-[0_0_80px_rgba(56,189,248,0.35)]"
+            : "border-slate-200 bg-white shadow-[0_0_40px_rgba(148,163,184,0.45)]"
+        }`}
+      >
         {/* Navbar */}
-        <header className="sticky top-0 z-20 border-b border-slate-800/70 bg-slate-900/90 backdrop-blur px-6 py-4 md:px-10">
+        <header
+          className={`sticky top-0 z-20 border-b backdrop-blur px-6 py-4 md:px-10 ${
+            isDark ? "border-slate-800/70 bg-slate-900/90" : "border-slate-200 bg-white/80"
+          }`}
+        >
           <div className="flex items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              {/* 🔥 Enlarged profile image top-left */}
-              <div className="h-30 w-30 overflow-hidden rounded-3xl border-2 border-sky-500/60 bg-slate-900 shadow-[0_0_22px_rgba(56,189,248,0.55)]">
+              {/* Enlarged profile image top-left */}
+              <div className="h-20 w-20 overflow-hidden rounded-3xl border-2 border-sky-500/60 bg-slate-900 shadow-[0_0_22px_rgba(56,189,248,0.55)]">
                 <img
                   src={profileImage}
                   alt="Dave Lacson"
@@ -138,13 +157,34 @@ export default function PortfolioLanding() {
               </a>
             </nav>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-medium text-slate-100 hover:border-sky-500 hover:text-sky-400 transition"
-            >
-              <Mail className="h-4 w-4" />
-              Say Hello
-            </a>
+            <div className="flex items-center gap-3">
+              {/* Theme toggle */}
+              <button
+                type="button"
+                onClick={() => setIsDark((prev) => !prev)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1.5 text-[0.7rem] font-medium text-slate-200 hover:border-sky-500 hover:text-sky-400 transition"
+              >
+                {isDark ? (
+                  <>
+                    <Sun className="h-3.5 w-3.5" />
+                    <span>Light</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="h-3.5 w-3.5" />
+                    <span>Dark</span>
+                  </>
+                )}
+              </button>
+
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-medium text-slate-100 hover:border-sky-500 hover:text-sky-400 transition"
+              >
+                <Mail className="h-4 w-4" />
+                Say Hello
+              </a>
+            </div>
           </div>
         </header>
 
@@ -238,7 +278,7 @@ export default function PortfolioLanding() {
 
           {/* Projects */}
           <section id="projects" className="mt-16 md:mt-20">
-            <div className="flex items-center justify_between gap-2">
+            <div className="flex items-center justify-between gap-2">
               <h2 className="text-2xl font-semibold text-slate-50">Projects</h2>
               <span className="text-xs text-slate-400">
                 Selected work · {projects.length} items
@@ -302,7 +342,7 @@ export default function PortfolioLanding() {
               </div>
             </div>
 
-            {/* Graphic design – 3 boxes, same size, hover + carousel + modal */}
+            {/* Graphic design – 3 boxes, hover + carousel + modal */}
             <div className="mt-10">
               <div className="mb-4 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -344,14 +384,14 @@ export default function PortfolioLanding() {
                       key={imgIndex}
                       type="button"
                       onClick={() => openGraphicModal(imgIndex)}
-                      className="group relative aspect-square w_full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-sky-500/70"
+                      className="group relative aspect-square w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-sky-500/70"
                     >
                       <img
                         src={img}
                         alt={`Graphic design ${imgIndex + 1}`}
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="pointer-events-none absolute inset-0 flex items-center justify_center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                         <span className="rounded-full bg-slate-950/80 px-3 py-1 text-xs font-medium text-slate-100">
                           View design
                         </span>
@@ -449,7 +489,7 @@ export default function PortfolioLanding() {
               <button
                 type="button"
                 onClick={nextGraphicInModal}
-                className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify_center rounded-full bg-slate-900/80 text-slate-200 hover:bg-slate-800"
+                className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/80 text-slate-200 hover:bg-slate-800"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
