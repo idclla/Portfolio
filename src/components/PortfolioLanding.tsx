@@ -16,7 +16,9 @@ import starImage from "../img/star.png";      // ✅ graphic image
 import paintImage from "../img/paint.jpg";    // ✅ new graphic image (second box)
 import QuatreImage from "../img/Quatrefoil knot.png";
 import LogoImage from "../img/LOGOBLZAR.png";
-import profileImage from "../img/me (2).jpg"; // ✅ your profile image
+// 🔥 theme-specific profile pics
+import darkProfile from "../img/dark.png";
+import lightProfile from "../img/light.png";
 
 const projects = [
   {
@@ -107,13 +109,13 @@ export default function PortfolioLanding() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center px-4 py-10 font-[Poppins,sans-serif] ${
+      className={`min-h-screen flex items-center justify-center px-4 py-10 font-[Poppins,sans-serif] transition-colors duration-300 ${
         isDark ? "bg-slate-950 text-slate-100" : "bg-slate-100 text-slate-900"
       }`}
     >
       {/* Outer glowing card */}
       <div
-        className={`w-full max-w-6xl overflow-hidden rounded-3xl border backdrop-blur-xl ${
+        className={`w-full max-w-6xl overflow-hidden rounded-3xl border backdrop-blur-xl transition-colors duration-300 ${
           isDark
             ? "border-slate-800/80 bg-slate-900/80 shadow-[0_0_80px_rgba(56,189,248,0.35)]"
             : "border-slate-200 bg-white shadow-[0_0_40px_rgba(148,163,184,0.45)]"
@@ -121,38 +123,56 @@ export default function PortfolioLanding() {
       >
         {/* Navbar */}
         <header
-          className={`sticky top-0 z-20 border-b backdrop-blur px-6 py-4 md:px-10 ${
+          className={`sticky top-0 z-20 border-b backdrop-blur px-6 py-4 md:px-10 transition-colors duration-300 ${
             isDark ? "border-slate-800/70 bg-slate-900/90" : "border-slate-200 bg-white/80"
           }`}
         >
           <div className="flex items-center justify-between gap-6">
             <div className="flex items-center gap-4">
               {/* Enlarged profile image top-left */}
-              <div className="h-20 w-20 overflow-hidden rounded-3xl border-2 border-sky-500/60 bg-slate-900 shadow-[0_0_22px_rgba(56,189,248,0.55)]">
+              <div
+                className={`h-20 w-20 overflow-hidden rounded-3xl border-2 transition-colors duration-300 shadow-lg ${
+                  isDark
+                    ? "border-sky-500/60 bg-slate-900 shadow-[0_0_22px_rgba(56,189,248,0.55)]"
+                    : "border-slate-300 bg-white shadow-[0_0_18px_rgba(148,163,184,0.35)]"
+                }`}
+              >
                 <img
-                  src={profileImage}
+                  src={isDark ? darkProfile : lightProfile}
                   alt="Dave Lacson"
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-sm font-semibold text-slate-50">
+                <span
+                  className={`text-sm font-semibold transition-colors duration-300 ${
+                    isDark ? "text-slate-50" : "text-slate-900"
+                  }`}
+                >
                   Dave Lacson
                 </span>
-                <span className="text-xs text-slate-400">
+                <span
+                  className={`text-xs transition-colors duration-300 ${
+                    isDark ? "text-slate-400" : "text-slate-500"
+                  }`}
+                >
                   Graphic Designer & Frontend
                 </span>
               </div>
             </div>
 
-            <nav className="hidden gap-7 text-[0.9rem] text-slate-300 md:flex">
-              <a href="#about" className="hover:text-sky-400 transition-colors">
+            <nav
+              className={`hidden gap-7 text-[0.9rem] md:flex transition-colors duration-300 ${
+                isDark ? "text-slate-300" : "text-slate-600"
+              }`}
+            >
+              <a href="#about" className="hover:text-sky-500 transition-colors">
                 About
               </a>
-              <a href="#projects" className="hover:text-sky-400 transition-colors">
+              <a href="#projects" className="hover:text-sky-500 transition-colors">
                 Projects
               </a>
-              <a href="#contact" className="hover:text-sky-400 transition-colors">
+              <a href="#contact" className="hover:text-sky-500 transition-colors">
                 Contact
               </a>
             </nav>
@@ -162,7 +182,11 @@ export default function PortfolioLanding() {
               <button
                 type="button"
                 onClick={() => setIsDark((prev) => !prev)}
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1.5 text-[0.7rem] font-medium text-slate-200 hover:border-sky-500 hover:text-sky-400 transition"
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[0.7rem] font-medium transition-colors duration-300 ${
+                  isDark
+                    ? "border-slate-700/70 bg-slate-900/70 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                    : "border-slate-300 bg-white/70 text-slate-700 hover:border-sky-400 hover:text-sky-500"
+                }`}
               >
                 {isDark ? (
                   <>
@@ -179,7 +203,11 @@ export default function PortfolioLanding() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-medium text-slate-100 hover:border-sky-500 hover:text-sky-400 transition"
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium transition-colors duration-300 ${
+                  isDark
+                    ? "border-slate-700 bg-slate-900 text-slate-100 hover:border-sky-500 hover:text-sky-400"
+                    : "border-slate-300 bg-white text-slate-800 hover:border-sky-400 hover:text-sky-500"
+                }`}
               >
                 <Mail className="h-4 w-4" />
                 Say Hello
@@ -188,20 +216,34 @@ export default function PortfolioLanding() {
           </div>
         </header>
 
-        <main className="px-6 pb-12 pt-8 md:px-10 md:pb-16 md:pt-12">
+        <main className="px-6 pb-12 pt-8 md:px-10 md:pb-16 md:pt-12 transition-colors duration-300">
           {/* Hero */}
           <section className="flex flex-col items-start gap-10 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
-              <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-slate-900/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-sky-400">
+              <p
+                className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                  isDark
+                    ? "bg-slate-900/70 text-sky-400"
+                    : "bg-sky-50 text-sky-600"
+                }`}
+              >
                 <Code2 className="h-3 w-3" />
                 Portfolio
               </p>
-              <h1 className="text-4xl font-semibold tracking-tight text-slate-50 sm:text-5xl md:text-6xl">
+              <h1
+                className={`text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl transition-colors duration-300 ${
+                  isDark ? "text-slate-50" : "text-slate-900"
+                }`}
+              >
                 Hi, I’m{" "}
-                <span className="text-sky-400">Dave Lacson</span>. <br />
+                <span className="text-sky-500">Dave Lacson</span>. <br />
                 I design & build digital experiences.
               </h1>
-              <p className="mt-5 text-sm text-slate-300 md:text-base">
+              <p
+                className={`mt-5 text-sm md:text-base transition-colors duration-300 ${
+                  isDark ? "text-slate-300" : "text-slate-600"
+                }`}
+              >
                 I’m focused on <span className="font-medium">graphic design</span>,{" "}
                 <span className="font-medium">frontend development</span>, and{" "}
                 <span className="font-medium">UI/UX</span>—often working with{" "}
@@ -224,21 +266,43 @@ export default function PortfolioLanding() {
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-700 px-6 py-3 text-sm font-medium text-slate-100 transition hover:border-sky-500 hover:text-sky-400"
+                  className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-6 py-3 text-sm font-medium transition-colors duration-300 ${
+                    isDark
+                      ? "border-slate-700 text-slate-100 hover:border-sky-500 hover:text-sky-400"
+                      : "border-slate-300 text-slate-800 hover:border-sky-400 hover:text-sky-500"
+                  }`}
                 >
                   <Mail className="h-4 w-4" />
                   Contact Me
                 </a>
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-2 text-[0.7rem] text-slate-400">
-                <span className="rounded-full border border-slate-700 px-3 py-1">
+              <div className="mt-7 flex flex-wrap gap-2 text-[0.7rem]">
+                <span
+                  className={`rounded-full border px-3 py-1 transition-colors duration-300 ${
+                    isDark
+                      ? "border-slate-700 text-slate-400"
+                      : "border-slate-300 text-slate-600"
+                  }`}
+                >
                   Frontend & React
                 </span>
-                <span className="rounded-full border border-slate-700 px-3 py-1">
+                <span
+                  className={`rounded-full border px-3 py-1 transition-colors duration-300 ${
+                    isDark
+                      ? "border-slate-700 text-slate-400"
+                      : "border-slate-300 text-slate-600"
+                  }`}
+                >
                   UI/UX & Prototyping
                 </span>
-                <span className="rounded-full border border-slate-700 px-3 py-1">
+                <span
+                  className={`rounded-full border px-3 py-1 transition-colors duration-300 ${
+                    isDark
+                      ? "border-slate-700 text-slate-400"
+                      : "border-slate-300 text-slate-600"
+                  }`}
+                >
                   Photoshop & Illustrator
                 </span>
               </div>
@@ -266,8 +330,18 @@ export default function PortfolioLanding() {
 
           {/* About */}
           <section id="about" className="mt-16 md:mt-20">
-            <h2 className="text-2xl font-semibold text-slate-50">About</h2>
-            <p className="mt-4 max-w-2xl text-sm text-slate-300 md:text-base">
+            <h2
+              className={`text-2xl font-semibold transition-colors duration-300 ${
+                isDark ? "text-slate-50" : "text-slate-900"
+              }`}
+            >
+              About
+            </h2>
+            <p
+              className={`mt-4 max-w-2xl text-sm md:text-base transition-colors duration-300 ${
+                isDark ? "text-slate-300" : "text-slate-600"
+              }`}
+            >
               I focus on blending <span className="font-medium">graphic design</span> and{" "}
               <span className="font-medium">frontend development</span> to create
               clean, usable interfaces. I enjoy crafting layouts, picking colors and
@@ -279,14 +353,24 @@ export default function PortfolioLanding() {
           {/* Projects */}
           <section id="projects" className="mt-16 md:mt-20">
             <div className="flex items-center justify-between gap-2">
-              <h2 className="text-2xl font-semibold text-slate-50">Projects</h2>
-              <span className="text-xs text-slate-400">
+              <h2
+                className={`text-2xl font-semibold transition-colors duration-300 ${
+                  isDark ? "text-slate-50" : "text-slate-900"
+                }`}
+              >
+                Projects
+              </h2>
+              <span
+                className={`text-xs transition-colors duration-300 ${
+                  isDark ? "text-slate-400" : "text-slate-500"
+                }`}
+              >
                 Selected work · {projects.length} items
               </span>
             </div>
 
             {/* Projects carousel */}
-            <div className="mt-7 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-md shadow-slate-950/60">
+            <div className="mt-7 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-md shadow-slate-950/60 transition-colors duration-300">
               <article className="flex flex-col justify-between">
                 <div>
                   <h3 className="text-sm font-semibold text-slate-100">
@@ -333,7 +417,7 @@ export default function PortfolioLanding() {
                       key={idx}
                       type="button"
                       onClick={() => setActiveProjectIndex(idx)}
-                      className={`h-2.5 w-2.5 rounded-full transition ${
+                      className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
                         idx === activeProjectIndex ? "bg-sky-400" : "bg-slate-600"
                       }`}
                     />
@@ -346,29 +430,49 @@ export default function PortfolioLanding() {
             <div className="mt-10">
               <div className="mb-4 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center justify-center rounded-full bg-slate-900 px-2.5 py-1">
+                  <span
+                    className={`inline-flex items-center justify-center rounded-full px-2.5 py-1 transition-colors duration-300 ${
+                      isDark ? "bg-slate-900" : "bg-slate-100"
+                    }`}
+                  >
                     <ImageIcon className="h-3.5 w-3.5 text-sky-400" />
                   </span>
-                  <h3 className="text-lg font-semibold text-slate-50">
+                  <h3
+                    className={`text-lg font-semibold transition-colors duration-300 ${
+                      isDark ? "text-slate-50" : "text-slate-900"
+                    }`}
+                  >
                     Graphic Design
                   </h3>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-slate-400">
+                  <span
+                    className={`text-xs transition-colors duration-300 ${
+                      isDark ? "text-slate-400" : "text-slate-500"
+                    }`}
+                  >
                     {graphicImages.length} pieces · replace with your artworks
                   </span>
                   <div className="flex gap-1.5">
                     <button
                       type="button"
                       onClick={prevGraphicRow}
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                      className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-sm transition-colors duration-300 ${
+                        isDark
+                          ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                          : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
+                      }`}
                     >
                       <ChevronLeft className="h-3 w-3" />
                     </button>
                     <button
                       type="button"
                       onClick={nextGraphicRow}
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                      className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-sm transition-colors duration-300 ${
+                        isDark
+                          ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                          : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
+                      }`}
                     >
                       <ChevronRight className="h-3 w-3" />
                     </button>
@@ -384,7 +488,11 @@ export default function PortfolioLanding() {
                       key={imgIndex}
                       type="button"
                       onClick={() => openGraphicModal(imgIndex)}
-                      className="group relative aspect-square w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-sky-500/70"
+                      className={`group relative aspect-square w-full overflow-hidden rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500/70 transition-colors duration-300 ${
+                        isDark
+                          ? "border-slate-800 bg-slate-900/80"
+                          : "border-slate-200 bg-white"
+                      }`}
                     >
                       <img
                         src={img}
@@ -392,7 +500,13 @@ export default function PortfolioLanding() {
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <span className="rounded-full bg-slate-950/80 px-3 py-1 text-xs font-medium text-slate-100">
+                        <span
+                          className={`rounded-full px-3 py-1 text-xs font-medium ${
+                            isDark
+                              ? "bg-slate-950/80 text-slate-100"
+                              : "bg-white/90 text-slate-800"
+                          }`}
+                        >
                           View design
                         </span>
                       </div>
@@ -405,8 +519,18 @@ export default function PortfolioLanding() {
 
           {/* Contact */}
           <section id="contact" className="mt-16 md:mt-20">
-            <h2 className="text-2xl font-semibold text-slate-50">Contact</h2>
-            <p className="mt-4 max-w-xl text-sm text-slate-300 md:text-base">
+            <h2
+              className={`text-2xl font-semibold transition-colors duration-300 ${
+                isDark ? "text-slate-50" : "text-slate-900"
+              }`}
+            >
+              Contact
+            </h2>
+            <p
+              className={`mt-4 max-w-xl text-sm md:text-base transition-colors duration-300 ${
+                isDark ? "text-slate-300" : "text-slate-600"
+              }`}
+            >
               Want to work together on <span className="font-medium">graphics</span>,
               <span className="font-medium"> UI/UX</span>, or{" "}
               <span className="font-medium">frontend</span>? You can reach me at{" "}
@@ -414,7 +538,7 @@ export default function PortfolioLanding() {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-sky-400 underline underline-offset-2"
+                className="font-medium text-sky-500 underline underline-offset-2"
               >
                 dave.lacson@lccbonline.edu.ph
               </a>{" "}
@@ -426,7 +550,11 @@ export default function PortfolioLanding() {
                 href="https://github.com/idclla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-4 py-2 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 transition-colors duration-300 ${
+                  isDark
+                    ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                    : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
+                }`}
               >
                 <Github className="h-4 w-4" />
                 GitHub
@@ -435,14 +563,22 @@ export default function PortfolioLanding() {
                 href="https://www.instagram.com/lacson_street/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-4 py-2 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 transition-colors duration-300 ${
+                  isDark
+                    ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                    : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
+                }`}
               >
                 <Instagram className="h-4 w-4" />
                 Instagram
               </a>
               <a
                 href="#"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-700 px-4 py-2 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 transition-colors duration-300 ${
+                  isDark
+                    ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
+                    : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
+                }`}
               >
                 <Mail className="h-4 w-4" />
                 Resume (PDF)
@@ -451,7 +587,11 @@ export default function PortfolioLanding() {
           </section>
 
           {/* Footer */}
-          <footer className="mt-16 border-t border-slate-800 pt-5 text-xs text-slate-500 md:mt-20">
+          <footer
+            className={`mt-16 border-t pt-5 text-xs md:mt-20 transition-colors duration-300 ${
+              isDark ? "border-slate-800 text-slate-500" : "border-slate-200 text-slate-400"
+            }`}
+          >
             © {new Date().getFullYear()} Your Name. Built with Vite + React +
             Tailwind.
           </footer>
@@ -502,7 +642,7 @@ export default function PortfolioLanding() {
                   key={idx}
                   type="button"
                   onClick={() => setModalGraphicIndex(idx)}
-                  className={`h-2.5 w-2.5 rounded-full transition ${
+                  className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
                     idx === modalGraphicIndex ? "bg-sky-400" : "bg-slate-600"
                   }`}
                 />
