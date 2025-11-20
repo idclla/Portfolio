@@ -11,69 +11,207 @@ import {
   ChevronRight,
   Sun,
   Moon,
+  Phone,
+  MapPin,
+  FileText,
 } from "lucide-react";
-import starImage from "../img/star.png";      // ✅ graphic image
-import paintImage from "../img/paint.jpg";    // ✅ new graphic image (second box)
+
+import starImage from "../img/star.png";
+import paintImage from "../img/paint.jpg";
 import QuatreImage from "../img/Quatrefoil knot.png";
-import LogoImage from "../img/LOGOBLZAR.png";
+import y2kImage from "../img/y2k.jpg";
+import cykaImage from "../img/cyka.jpg";
+import dnaImage from "../img/dna.jpg";
 // 🔥 theme-specific profile pics
 import darkProfile from "../img/dark.png";
 import lightProfile from "../img/light.png";
 
-const projects = [
+/* ---------- Flip Business Card (Contact) ---------- */
+function BusinessCard() {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <div className="flex justify-center">
+      {/* Perspective wrapper */}
+      <div
+        className="relative w-full max-w-[400px] h-[240px] cursor-pointer"
+        style={{ perspective: "1000px" }}
+        onClick={() => setIsFlipped((p) => !p)}
+      >
+        {/* Rotating card */}
+        <div
+          className="absolute inset-0 rounded-2xl shadow-2xl overflow-hidden"
+          style={{
+            transformStyle: "preserve-3d",
+            transition: "transform 0.7s",
+            transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          }}
+        >
+          {/* Front of card (like your first screenshot) */}
+          <div
+            className="absolute w-full h-full rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 flex flex-col justify-between"
+            style={{ backfaceVisibility: "hidden" }}
+          >
+            <div>
+              {/* Square logo */}
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-8 h-8 bg-white rounded-lg shadow-sm" />
+              </div>
+            </div>
+
+            <div className="text-white">
+              <h1 className="mb-1 text-lg font-semibold">Dave Lacson</h1>
+              <p className="text-white/90 mb-1 text-sm">
+                Graphic Designer & Frontend
+              </p>
+              <p className="text-white/70 text-xs">Portfolio & Freelance Work</p>
+            </div>
+
+            <div className="flex justify-end">
+              <div className="text-[0.75rem] text-white/70">
+                Click to reveal details
+              </div>
+            </div>
+          </div>
+
+          {/* Back of card (like your second screenshot) */}
+          <div
+            className="absolute w-full h-full rounded-2xl bg-white p-8 flex flex-col justify-between"
+            style={{
+              backfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+            }}
+          >
+            <div>
+              <h2 className="text-slate-900 mb-6 text-base font-semibold">
+                Contact Information
+              </h2>
+
+              <div className="space-y-4 text-sm">
+                <div className="flex items-center gap-3 text-slate-700">
+                  <Mail className="w-5 h-5 text-blue-600" />
+                  <a
+                    href="mailto:dave.lacson@lccbonline.edu.ph"
+                    className="hover:text-blue-600 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    dave.lacson@lccbonline.edu.ph
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-3 text-slate-700">
+                  <Phone className="w-5 h-5 text-blue-600" />
+                  <span>###########</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-slate-700">
+                  <MapPin className="w-5 h-5 text-blue-600" />
+                  <span>Bacolod City, Granada</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-2 border-t border-slate-200 flex items-center gap-3">
+              {/* GitHub */}
+              <a
+                href="https://github.com/idclla"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white hover:bg-slate-800 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Github className="w-5 h-5" />
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/lacson_street/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+
+              {/* Resume */}
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 h-10 text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FileText className="w-4 h-4" />
+                Resume
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Types ---------- */
+type Project = {
+  title: string;
+  description: string;
+  tech: string[];
+  figmaEmbedUrl?: string;
+};
+
+/* ---------- Projects Data (with Figma previews) ---------- */
+const projects: Project[] = [
   {
     title: "Project One",
-    description: "Short description of what this project does and why it’s cool.",
-    tech: ["React", "TypeScript", "Tailwind"],
+    description:
+      "Coffee Bean POS is an all-in-one point-of-sale system designed specifically for coffee shops. It streamlines everything from order taking to inventory, so baristas can focus on making great coffee instead of fighting with tools. With real-time storage detection and drink customization, it keeps orders fast, accurate, and flexible.",
+    tech: ["Figma", "UI/UX"],
+    figmaEmbedUrl:
+      "https://embed.figma.com/design/T7nioN2a5NKXyJLPCbNRSS/COFFEE-SHOP-POS?node-id=0-1&embed-host=share",
   },
   {
     title: "Project Two",
-    description: "Another project highlight with a quick one-liner summary.",
-    tech: ["Node.js", "Express", "MySQL"],
+    description:
+      "Terranova is an online hiking equipment store for people who feel most alive on the trail. From backpacks to outerwear, the UI is built to feel clean, trustworthy, and easy to explore—even with a large catalog of gear.",
+    tech: ["Figma", "UI/UX"],
+    figmaEmbedUrl:
+      "https://embed.figma.com/design/dRuljizwr5tZXK2k0feG8l/UI-UX?node-id=0-1&embed-host=share",
   },
   {
     title: "Project Three",
-    description: "Maybe a mobile app, dashboard, or school project.",
-    tech: ["React Native", "Expo"],
+    description:
+      "BLAZR is a bold hiking brand identity that mixes sharp, mountain-inspired shapes with a clean modern wordmark. Built to sit well on patches, apparel, and digital platforms.",
+    tech: ["Figma", "Adobe Illustrator", "Adobe Photoshop"],
+    figmaEmbedUrl:
+      "https://embed.figma.com/design/arQRAjklRGn2pzfBqPZWNf/PAKITA-BWAS?node-id=0-1&embed-host=share",
   },
   {
     title: "Project Four",
-    description: "Extra placeholder project. Replace with your real work later.",
-    tech: ["Next.js", "Prisma"],
-  },
-  {
-    title: "Project Five",
-    description: "Another placeholder to fill the carousel with more items.",
+    description:
+      "Audio Player UI concept with interactive prototype, focusing on minimal controls, clear hierarchy, and smooth micro-interactions.",
     tech: ["Figma", "UI/UX"],
-  },
-  {
-    title: "Project Six",
-    description: "Final placeholder project to complete the set of six.",
-    tech: ["Firebase", "Auth"],
+    figmaEmbedUrl:
+      "https://embed.figma.com/design/7J6PvAU4CUORi9Vkali9J7/Audio-Player?node-id=0-1&embed-host=share",
   },
 ];
 
 // 6 graphic slots
 const graphicImages = [
-  starImage,   // 1st
-  paintImage,  // 2nd
-  QuatreImage, // 3rd
-  LogoImage,   // 4th
-  starImage,   // 5th
-  starImage,   // 6th
+  dnaImage,
+  y2kImage,
+  cykaImage,
+  starImage,
+  paintImage,
+  QuatreImage,
 ];
 
 export default function PortfolioLanding() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-
-  // Dark / light theme
   const [isDark, setIsDark] = useState(true);
 
-  // Graphic modal state
   const [isGraphicModalOpen, setIsGraphicModalOpen] = useState(false);
   const [modalGraphicIndex, setModalGraphicIndex] = useState(0);
 
-  // Graphic grid carousel (3 at a time)
   const [graphicStartIndex, setGraphicStartIndex] = useState(0);
 
   const activeProject = projects[activeProjectIndex];
@@ -81,7 +219,9 @@ export default function PortfolioLanding() {
   const nextProject = () =>
     setActiveProjectIndex((prev) => (prev + 1) % projects.length);
   const prevProject = () =>
-    setActiveProjectIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setActiveProjectIndex(
+      (prev) => (prev - 1 + projects.length) % projects.length
+    );
 
   const openGraphicModal = (index: number) => {
     setModalGraphicIndex(index);
@@ -94,15 +234,18 @@ export default function PortfolioLanding() {
     setModalGraphicIndex((prev) => (prev + 1) % graphicImages.length);
 
   const prevGraphicInModal = () =>
-    setModalGraphicIndex((prev) => (prev - 1 + graphicImages.length) % graphicImages.length);
+    setModalGraphicIndex(
+      (prev) => (prev - 1 + graphicImages.length) % graphicImages.length
+    );
 
   const nextGraphicRow = () =>
     setGraphicStartIndex((prev) => (prev + 3) % graphicImages.length);
 
   const prevGraphicRow = () =>
-    setGraphicStartIndex((prev) => (prev - 3 + graphicImages.length) % graphicImages.length);
+    setGraphicStartIndex(
+      (prev) => (prev - 3 + graphicImages.length) % graphicImages.length
+    );
 
-  // Helper: get the 3 indices for current row
   const visibleGraphicIndices = [0, 1, 2].map(
     (offset) => (graphicStartIndex + offset) % graphicImages.length
   );
@@ -124,12 +267,14 @@ export default function PortfolioLanding() {
         {/* Navbar */}
         <header
           className={`sticky top-0 z-20 border-b backdrop-blur px-6 py-4 md:px-10 transition-colors duration-300 ${
-            isDark ? "border-slate-800/70 bg-slate-900/90" : "border-slate-200 bg-white/80"
+            isDark
+              ? "border-slate-800/70 bg-slate-900/90"
+              : "border-slate-200 bg-white/80"
           }`}
         >
           <div className="flex items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              {/* Enlarged profile image top-left */}
+              {/* profile */}
               <div
                 className={`h-20 w-20 overflow-hidden rounded-3xl border-2 transition-colors duration-300 shadow-lg ${
                   isDark
@@ -169,10 +314,16 @@ export default function PortfolioLanding() {
               <a href="#about" className="hover:text-sky-500 transition-colors">
                 About
               </a>
-              <a href="#projects" className="hover:text-sky-500 transition-colors">
+              <a
+                href="#projects"
+                className="hover:text-sky-500 transition-colors"
+              >
                 Projects
               </a>
-              <a href="#contact" className="hover:text-sky-500 transition-colors">
+              <a
+                href="#contact"
+                className="hover:text-sky-500 transition-colors"
+              >
                 Contact
               </a>
             </nav>
@@ -222,9 +373,7 @@ export default function PortfolioLanding() {
             <div className="max-w-2xl">
               <p
                 className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
-                  isDark
-                    ? "bg-slate-900/70 text-sky-400"
-                    : "bg-sky-50 text-sky-600"
+                  isDark ? "bg-slate-900/70 text-sky-400" : "bg-sky-50 text-sky-600"
                 }`}
               >
                 <Code2 className="h-3 w-3" />
@@ -235,8 +384,7 @@ export default function PortfolioLanding() {
                   isDark ? "text-slate-50" : "text-slate-900"
                 }`}
               >
-                Hi, I’m{" "}
-                <span className="text-sky-500">Dave Lacson</span>. <br />
+                Hi, I’m <span className="text-sky-500">Dave Lacson</span>. <br />
                 I design & build digital experiences.
               </h1>
               <p
@@ -261,7 +409,7 @@ export default function PortfolioLanding() {
                   View Projects
                 </a>
 
-                {/* Contact Me button -> opens Gmail compose */}
+                {/* Contact Me button */}
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
                   target="_blank"
@@ -315,10 +463,11 @@ export default function PortfolioLanding() {
                   Currently
                 </div>
                 <p className="text-sm text-slate-100">
-                  Designing <span className="text-sky-400">interfaces & graphics</span>,{" "}
-                  polishing <span className="text-sky-400">UI/UX flows</span>, and
-                  experimenting with <span className="text-sky-400">frontend builds</span>{" "}
-                  using modern tools.
+                  Designing{" "}
+                  <span className="text-sky-400">interfaces & graphics</span>, polishing{" "}
+                  <span className="text-sky-400">UI/UX flows</span>, and experimenting
+                  with <span className="text-sky-400">frontend builds</span> using modern
+                  tools.
                 </p>
                 <div className="mt-5 h-px w-full bg-linear-to-r from-transparent via-slate-600 to-transparent" />
                 <p className="mt-4 text-xs text-slate-300">
@@ -343,10 +492,10 @@ export default function PortfolioLanding() {
               }`}
             >
               I focus on blending <span className="font-medium">graphic design</span> and{" "}
-              <span className="font-medium">frontend development</span> to create
-              clean, usable interfaces. I enjoy crafting layouts, picking colors and
-              type, and then bringing everything to life in code. Tools I often use
-              include React, Tailwind, Photoshop, and Adobe Illustrator.
+              <span className="font-medium">frontend development</span> to create clean,
+              usable interfaces. I enjoy crafting layouts, picking colors and type, and
+              then bringing everything to life in code. Tools I often use include React,
+              Tailwind, Photoshop, and Adobe Illustrator.
             </p>
           </section>
 
@@ -369,7 +518,7 @@ export default function PortfolioLanding() {
               </span>
             </div>
 
-            {/* Projects carousel */}
+            {/* Project card with Figma preview */}
             <div className="mt-7 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-md shadow-slate-950/60 transition-colors duration-300">
               <article className="flex flex-col justify-between">
                 <div>
@@ -379,7 +528,25 @@ export default function PortfolioLanding() {
                   <p className="mt-3 text-xs text-slate-300">
                     {activeProject.description}
                   </p>
+
+                  {activeProject.figmaEmbedUrl && (
+                    <div className="mt-4">
+                      <p className="mb-2 text-[0.7rem] uppercase tracking-[0.2em] text-slate-400">
+                        Figma Preview
+                      </p>
+                      <div className="aspect-video w-full overflow-hidden rounded-xl border border-slate-700 bg-slate-900">
+                        <iframe
+                          src={activeProject.figmaEmbedUrl}
+                          className="h-full w-full border-0"
+                          allowFullScreen
+                          loading="lazy"
+                          title={`${activeProject.title} – Figma preview`}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
+
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {activeProject.tech.map((t) => (
                     <span
@@ -392,7 +559,7 @@ export default function PortfolioLanding() {
                 </div>
               </article>
 
-              {/* Carousel controls */}
+              {/* Project carousel controls */}
               <div className="mt-5 flex items-center justify-between">
                 <div className="flex gap-2">
                   <button
@@ -426,7 +593,7 @@ export default function PortfolioLanding() {
               </div>
             </div>
 
-            {/* Graphic design – 3 boxes, hover + carousel + modal */}
+            {/* Graphic design grid */}
             <div className="mt-10">
               <div className="mb-4 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -531,69 +698,24 @@ export default function PortfolioLanding() {
                 isDark ? "text-slate-300" : "text-slate-600"
               }`}
             >
-              Want to work together on <span className="font-medium">graphics</span>,
-              <span className="font-medium"> UI/UX</span>, or{" "}
-              <span className="font-medium">frontend</span>? You can reach me at{" "}
-              <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-sky-500 underline underline-offset-2"
-              >
-                dave.lacson@lccbonline.edu.ph
-              </a>{" "}
-              or via your favorite social platform.
+              Click the business card below to flip it and reveal my contact details and
+              social links.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-3 text-sm">
-              <a
-                href="https://github.com/idclla"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 transition-colors duration-300 ${
-                  isDark
-                    ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
-                    : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
-                }`}
-              >
-                <Github className="h-4 w-4" />
-                GitHub
-              </a>
-              <a
-                href="https://www.instagram.com/lacson_street/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 transition-colors duration-300 ${
-                  isDark
-                    ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
-                    : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
-                }`}
-              >
-                <Instagram className="h-4 w-4" />
-                Instagram
-              </a>
-              <a
-                href="#"
-                className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 transition-colors duration-300 ${
-                  isDark
-                    ? "border-slate-700 text-slate-200 hover:border-sky-500 hover:text-sky-400"
-                    : "border-slate-300 text-slate-700 hover:border-sky-400 hover:text-sky-500"
-                }`}
-              >
-                <Mail className="h-4 w-4" />
-                Resume (PDF)
-              </a>
+            <div className="mt-8">
+              <BusinessCard />
             </div>
           </section>
 
           {/* Footer */}
           <footer
             className={`mt-16 border-t pt-5 text-xs md:mt-20 transition-colors duration-300 ${
-              isDark ? "border-slate-800 text-slate-500" : "border-slate-200 text-slate-400"
+              isDark
+                ? "border-slate-800 text-slate-500"
+                : "border-slate-200 text-slate-400"
             }`}
           >
-            © {new Date().getFullYear()} Your Name. Built with Vite + React +
-            Tailwind.
+            © {new Date().getFullYear()} Dave Lacson. Built with Vite + React + Tailwind.
           </footer>
         </main>
       </div>
