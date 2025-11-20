@@ -40,16 +40,16 @@ function BusinessCard() {
       >
         {/* Rotating card */}
         <div
-          className="absolute inset-0 rounded-2xl shadow-2xl overflow-hidden"
+          className="absolute inset-0 rounded-2xl shadow-2xl overflow-visible"
           style={{
             transformStyle: "preserve-3d",
             transition: "transform 0.7s",
             transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
           }}
         >
-          {/* Front of card (like your first screenshot) */}
+          {/* FRONT – gradient card (like your first image) */}
           <div
-            className="absolute w-full h-full rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 flex flex-col justify-between"
+            className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 flex flex-col justify-between"
             style={{ backfaceVisibility: "hidden" }}
           >
             <div>
@@ -74,75 +74,87 @@ function BusinessCard() {
             </div>
           </div>
 
-          {/* Back of card (like your second screenshot) */}
+          {/* BACK – white contact card (like second image) */}
           <div
-            className="absolute w-full h-full rounded-2xl bg-white p-8 flex flex-col justify-between"
+            className="absolute inset-0 rounded-2xl bg-slate-950 flex items-center justify-center"
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
             }}
           >
-            <div>
-              <h2 className="text-slate-900 mb-6 text-base font-semibold">
-                Contact Information
-              </h2>
+            {/* Inner white card */}
+            <div className="relative w-[88%] rounded-2xl bg-white px-8 py-7 shadow-lg">
+              <div>
+                <h2 className="text-slate-900 mb-6 text-base font-semibold">
+                  Contact Information
+                </h2>
 
-              <div className="space-y-4 text-sm">
-                <div className="flex items-center gap-3 text-slate-700">
-                  <Mail className="w-5 h-5 text-blue-600" />
-                  <a
-                    href="mailto:dave.lacson@lccbonline.edu.ph"
-                    className="hover:text-blue-600 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    dave.lacson@lccbonline.edu.ph
-                  </a>
-                </div>
+                <div className="space-y-4 text-sm">
+                  {/* Email */}
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <Mail className="w-5 h-5 text-blue-600" />
+                    <a
+                      href="mailto:dave.lacson@lccbonline.edu.ph"
+                      className="hover:text-blue-600 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      dave.lacson@lccbonline.edu.ph
+                    </a>
+                  </div>
 
-                <div className="flex items-center gap-3 text-slate-700">
-                  <Phone className="w-5 h-5 text-blue-600" />
-                  <span>###########</span>
-                </div>
+                  {/* Phone */}
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <Phone className="w-5 h-5 text-blue-600" />
+                    <span>###########</span>
+                  </div>
 
-                <div className="flex items-center gap-3 text-slate-700">
-                  <MapPin className="w-5 h-5 text-blue-600" />
-                  <span>Bacolod City, Granada</span>
+                  {/* Location */}
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <MapPin className="w-5 h-5 text-blue-600" />
+                    <span>Bacolod City, Granada</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="pt-4 mt-2 border-t border-slate-200 flex items-center gap-3">
-              {/* GitHub */}
-              <a
-                href="https://github.com/idclla"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white hover:bg-slate-800 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Github className="w-5 h-5" />
-              </a>
+              {/* Divider line like in the screenshot */}
+              <div className="mt-5 border-t border-slate-200" />
 
-              {/* Instagram */}
-              <a
-                href="https://www.instagram.com/lacson_street/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
+              {/* Floating socials + resume */}
+              <div className="absolute -bottom-6 left-8 flex gap-3">
+                {/* GitHub */}
+                <a
+                  href="https://github.com/idclla"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white hover:bg-slate-800 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Github className="w-5 h-5" />
+                </a>
 
-              {/* Resume */}
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 h-10 text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <FileText className="w-4 h-4" />
-                Resume
-              </a>
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/lacson_street/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
+
+              {/* Resume pill */}
+              <div className="pt-4 mt-2 flex justify-end">
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 h-9 text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <FileText className="w-4 h-4" />
+                  Resume
+                </a>
+              </div>
             </div>
           </div>
         </div>
