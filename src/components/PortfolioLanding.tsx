@@ -27,135 +27,134 @@ import darkProfile from "../img/dark.png";
 import lightProfile from "../img/light.png";
 
 /* ---------- Flip Business Card (Contact) ---------- */
-function BusinessCard() {
+type BusinessCardProps = {
+  isDark: boolean;
+};
+
+function BusinessCard({ isDark }: BusinessCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <div className="flex justify-center">
-      {/* Perspective wrapper */}
+    // Same wrapper + size as before, no alignment here
+    <div
+      className="relative w-full max-w-[400px]"
+      style={{ perspective: "1000px" }}
+    >
+      {/* Rotating card */}
       <div
-        className="relative w-full max-w-[400px] h-[240px] cursor-pointer"
-        style={{ perspective: "1000px" }}
+        className="relative h-64 w-full cursor-pointer rounded-2xl shadow-2xl [transform-style:preserve-3d] transition-transform duration-700"
+        style={{
+          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
         onClick={() => setIsFlipped((p) => !p)}
       >
-        {/* Rotating card */}
-        <div
-          className="absolute inset-0 rounded-2xl shadow-2xl overflow-visible"
-          style={{
-            transformStyle: "preserve-3d",
-            transition: "transform 0.7s",
-            transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          }}
-        >
-          {/* FRONT – gradient card (like your first image) */}
-          <div
-            className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 flex flex-col justify-between"
-            style={{ backfaceVisibility: "hidden" }}
-          >
-            <div>
-              {/* Square logo */}
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6">
-                <div className="w-8 h-8 bg-white rounded-lg shadow-sm" />
-              </div>
+        {/* FRONT – gradient card with profile */}
+        <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 p-6 flex flex-col justify-between [backface-visibility:hidden]">
+          {/* Profile like navbar */}
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-14 w-14 overflow-hidden rounded-3xl border-2 border-white/40 shadow-md">
+              <img
+                src={isDark ? darkProfile : lightProfile}
+                alt="Dave Lacson"
+                className="h-full w-full object-cover"
+              />
             </div>
-
-            <div className="text-white">
-              <h1 className="mb-1 text-lg font-semibold">Dave Lacson</h1>
-              <p className="text-white/90 mb-1 text-sm">
-                Graphic Designer & Frontend
+            <div className="leading-tight text-white">
+              <p className="text-[0.65rem] uppercase tracking-[0.18em] text-white/70">
+                Portfolio Card
               </p>
-              <p className="text-white/70 text-xs">Portfolio & Freelance Work</p>
+              <p className="text-sm font-semibold">Dave Lacson</p>
             </div>
+          </div>
 
-            <div className="flex justify-end">
-              <div className="text-[0.75rem] text-white/70">
-                Click to reveal details
+          <div className="text-white">
+            <h1 className="mb-1 text-lg font-semibold">
+              Graphic Designer &amp; Frontend
+            </h1>
+            <p className="text-white/80 text-xs">
+              Clean visuals, thoughtful UI, and modern web experiences.
+            </p>
+          </div>
+
+          <div className="flex justify-end">
+            <div className="text-[0.7rem] text-white/70">
+              Click to reveal contact details
+            </div>
+          </div>
+        </div>
+
+        {/* BACK – full white card */}
+        <div className="absolute inset-0 rounded-2xl bg-white px-6 py-9 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] relative">
+          {/* Top content */}
+          <div>
+            <h2 className="text-slate-900 mb-4 text-base font-semibold">
+              Contact Information
+            </h2>
+
+            <div className="space-y-3 text-sm">
+              {/* Email → Gmail compose */}
+              <div className="flex items-center gap-3 text-slate-700">
+                <Mail className="w-5 h-5 text-blue-600" />
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  dave.lacson@lccbonline.edu.ph
+                </a>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-center gap-3 text-slate-700">
+                <Phone className="w-5 h-5 text-blue-600" />
+                <span>###########</span>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-center gap-3 text-slate-700">
+                <MapPin className="w-5 h-5 text-blue-600" />
+                <span>Bacolod City, Granada</span>
               </div>
             </div>
           </div>
 
-          {/* BACK – white contact card (like second image) */}
-          <div
-            className="absolute inset-0 rounded-2xl bg-slate-950 flex items-center justify-center"
-            style={{
-              backfaceVisibility: "hidden",
-              transform: "rotateY(180deg)",
-            }}
-          >
-            {/* Inner white card */}
-            <div className="relative w-[88%] rounded-2xl bg-white px-8 py-7 shadow-lg">
-              <div>
-                <h2 className="text-slate-900 mb-6 text-base font-semibold">
-                  Contact Information
-                </h2>
+          {/* Footer: divider + resume on the right */}
+          <div className="mt-4 border-t border-slate-200 pt-4 flex justify-end">
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 h-9 text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <FileText className="w-4 h-4" />
+              Resume
+            </a>
+          </div>
 
-                <div className="space-y-4 text-sm">
-                  {/* Email */}
-                  <div className="flex items-center gap-3 text-slate-700">
-                    <Mail className="w-5 h-5 text-blue-600" />
-                    <a
-                      href="mailto:dave.lacson@lccbonline.edu.ph"
-                      className="hover:text-blue-600 transition-colors"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      dave.lacson@lccbonline.edu.ph
-                    </a>
-                  </div>
+          {/* Floating socials overlapping bottom-left */}
+          <div className="absolute -bottom-7 left-6 flex gap-3">
+            {/* GitHub */}
+            <a
+              href="https://github.com/idclla"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white hover:bg-slate-800 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Github className="w-5 h-5" />
+            </a>
 
-                  {/* Phone */}
-                  <div className="flex items-center gap-3 text-slate-700">
-                    <Phone className="w-5 h-5 text-blue-600" />
-                    <span>###########</span>
-                  </div>
-
-                  {/* Location */}
-                  <div className="flex items-center gap-3 text-slate-700">
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                    <span>Bacolod City, Granada</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Divider line like in the screenshot */}
-              <div className="mt-5 border-t border-slate-200" />
-
-              {/* Floating socials + resume */}
-              <div className="absolute -bottom-6 left-8 flex gap-3">
-                {/* GitHub */}
-                <a
-                  href="https://github.com/idclla"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white hover:bg-slate-800 transition-colors"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Github className="w-5 h-5" />
-                </a>
-
-                {/* Instagram */}
-                <a
-                  href="https://www.instagram.com/lacson_street/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-              </div>
-
-              {/* Resume pill */}
-              <div className="pt-4 mt-2 flex justify-end">
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 h-9 text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <FileText className="w-4 h-4" />
-                  Resume
-                </a>
-              </div>
-            </div>
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/lacson_street/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
           </div>
         </div>
       </div>
@@ -714,8 +713,9 @@ export default function PortfolioLanding() {
               social links.
             </p>
 
-            <div className="mt-8">
-              <BusinessCard />
+            {/* Left-aligned, same size card */}
+            <div className="mt-8 flex justify-start">
+              <BusinessCard isDark={isDark} />
             </div>
           </section>
 
