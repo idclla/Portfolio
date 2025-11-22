@@ -35,24 +35,29 @@ function BusinessCard({ isDark }: BusinessCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    // Same wrapper + size as before, no alignment here
+    // Same wrapper + size
     <div
       className="relative w-full max-w-[400px]"
       style={{ perspective: "1000px" }}
     >
-      {/* Rotating card */}
+      {/* Rotating card with white-ish outer glow */}
       <div
-        className="relative h-64 w-full cursor-pointer rounded-2xl shadow-2xl [transform-style:preserve-3d] transition-transform duration-700"
+        className="
+          relative h-64 w-full cursor-pointer rounded-2xl
+          shadow-[0_0_40px_rgba(255,255,255,0.25)]
+          transform-3d
+          transition-transform duration-700
+        "
         style={{
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
         onClick={() => setIsFlipped((p) => !p)}
       >
         {/* FRONT – gradient card with profile */}
-        <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 p-6 flex flex-col justify-between [backface-visibility:hidden]">
+        <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 p-5 sm:p-6 flex flex-col justify-between backface-hidden">
           {/* Profile like navbar */}
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-14 w-14 overflow-hidden rounded-3xl border-2 border-white/40 shadow-md">
+            <div className="h-12 w-12 sm:h-14 sm:w-14 overflow-hidden rounded-3xl border-2 border-white/40 shadow-md">
               <img
                 src={isDark ? darkProfile : lightProfile}
                 alt="Dave Lacson"
@@ -60,7 +65,7 @@ function BusinessCard({ isDark }: BusinessCardProps) {
               />
             </div>
             <div className="leading-tight text-white">
-              <p className="text-[0.65rem] uppercase tracking-[0.18em] text-white/70">
+              <p className="text-[0.6rem] sm:text-[0.65rem] uppercase tracking-[0.18em] text-white/70">
                 Portfolio Card
               </p>
               <p className="text-sm font-semibold">Dave Lacson</p>
@@ -68,38 +73,38 @@ function BusinessCard({ isDark }: BusinessCardProps) {
           </div>
 
           <div className="text-white">
-            <h1 className="mb-1 text-lg font-semibold">
+            <h1 className="mb-1 text-base sm:text-lg font-semibold">
               Graphic Designer &amp; Frontend
             </h1>
-            <p className="text-white/80 text-xs">
+            <p className="text-white/80 text-[0.7rem] sm:text-xs">
               Clean visuals, thoughtful UI, and modern web experiences.
             </p>
           </div>
 
           <div className="flex justify-end">
-            <div className="text-[0.7rem] text-white/70">
-              Click to reveal contact details
+            <div className="text-[0.65rem] sm:text-[0.7rem] text-white/70">
+              Tap to reveal contact details
             </div>
           </div>
         </div>
 
-        {/* BACK – full white card */}
-        <div className="absolute inset-0 rounded-2xl bg-white px-6 py-9 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] relative">
+        {/* BACK – gradient card */}
+        <div className="inset-0 rounded-2xl bg-linear-to-br from-slate-950 via-slate-900 to-slate-800 px-5 sm:px-6 py-7 sm:py-9 flex flex-col justify-between backface-hidden transform-[rotateY(180deg)] relative">
           {/* Top content */}
           <div>
-            <h2 className="text-slate-900 mb-4 text-base font-semibold">
+            <h2 className="text-slate-50 mb-4 text-base font-semibold">
               Contact Information
             </h2>
 
             <div className="space-y-3 text-sm">
               {/* Email → Gmail compose */}
-              <div className="flex items-center gap-3 text-slate-700">
-                <Mail className="w-5 h-5 text-blue-600" />
+              <div className="flex items-center gap-3 text-slate-200">
+                <Mail className="w-5 h-5 text-sky-400" />
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-sky-300 transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
                   dave.lacson@lccbonline.edu.ph
@@ -107,24 +112,24 @@ function BusinessCard({ isDark }: BusinessCardProps) {
               </div>
 
               {/* Phone */}
-              <div className="flex items-center gap-3 text-slate-700">
-                <Phone className="w-5 h-5 text-blue-600" />
-                <span>###########</span>
+              <div className="flex items-center gap-3 text-slate-200">
+                <Phone className="w-5 h-5 text-sky-400" />
+                <span>63+ 968 708 1809</span>
               </div>
 
               {/* Location */}
-              <div className="flex items-center gap-3 text-slate-700">
-                <MapPin className="w-5 h-5 text-blue-600" />
+              <div className="flex items-center gap-3 text-slate-200">
+                <MapPin className="w-5 h-5 text-sky-400" />
                 <span>Bacolod City, Granada</span>
               </div>
             </div>
           </div>
 
           {/* Footer: divider + resume on the right */}
-          <div className="mt-4 border-t border-slate-200 pt-4 flex justify-end">
+          <div className="mt-4 border-t border-slate-700 pt-4 flex justify-end">
             <a
               href="#"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 h-9 text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-500 px-4 h-9 text-xs font-medium text-slate-100 hover:border-sky-400 hover:text-sky-300 transition-colors"
               onClick={(e) => e.stopPropagation()}
             >
               <FileText className="w-4 h-4" />
@@ -263,7 +268,7 @@ export default function PortfolioLanding() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center px-4 py-10 font-[Poppins,sans-serif] transition-colors duration-300 ${
+      className={`min-h-screen w-full flex items-stretch md:items-center justify-center px-3 sm:px-4 py-6 sm:py-10 font-[Poppins,sans-serif] transition-colors duration-300 ${
         isDark ? "bg-slate-950 text-slate-100" : "bg-slate-100 text-slate-900"
       }`}
     >
@@ -277,17 +282,17 @@ export default function PortfolioLanding() {
       >
         {/* Navbar */}
         <header
-          className={`sticky top-0 z-20 border-b backdrop-blur px-6 py-4 md:px-10 transition-colors duration-300 ${
+          className={`sticky top-0 z-20 border-b backdrop-blur px-4 sm:px-6 md:px-10 py-3 sm:py-4 transition-colors duration-300 ${
             isDark
               ? "border-slate-800/70 bg-slate-900/90"
               : "border-slate-200 bg-white/80"
           }`}
         >
-          <div className="flex items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 sm:gap-6">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* profile */}
               <div
-                className={`h-20 w-20 overflow-hidden rounded-3xl border-2 transition-colors duration-300 shadow-lg ${
+                className={`h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-3xl border-2 transition-colors duration-300 shadow-lg ${
                   isDark
                     ? "border-sky-500/60 bg-slate-900 shadow-[0_0_22px_rgba(56,189,248,0.55)]"
                     : "border-slate-300 bg-white shadow-[0_0_18px_rgba(148,163,184,0.35)]"
@@ -301,14 +306,14 @@ export default function PortfolioLanding() {
               </div>
               <div className="flex flex-col leading-tight">
                 <span
-                  className={`text-sm font-semibold transition-colors duration-300 ${
+                  className={`text-sm sm:text-base font-semibold transition-colors duration-300 ${
                     isDark ? "text-slate-50" : "text-slate-900"
                   }`}
                 >
                   Dave Lacson
                 </span>
                 <span
-                  className={`text-xs transition-colors duration-300 ${
+                  className={`text-xs sm:text-sm transition-colors duration-300 ${
                     isDark ? "text-slate-400" : "text-slate-500"
                   }`}
                 >
@@ -318,7 +323,7 @@ export default function PortfolioLanding() {
             </div>
 
             <nav
-              className={`hidden gap-7 text-[0.9rem] md:flex transition-colors duration-300 ${
+              className={`hidden md:flex gap-7 text-[0.9rem] transition-colors duration-300 ${
                 isDark ? "text-slate-300" : "text-slate-600"
               }`}
             >
@@ -339,7 +344,7 @@ export default function PortfolioLanding() {
               </a>
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 ml-auto md:ml-0">
               {/* Theme toggle */}
               <button
                 type="button"
@@ -365,7 +370,7 @@ export default function PortfolioLanding() {
 
               <a
                 href="#contact"
-                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium transition-colors duration-300 ${
+                className={`inline-flex items-center gap-2 rounded-full border px-3 sm:px-4 py-2 text-[0.7rem] sm:text-xs font-medium transition-colors duration-300 ${
                   isDark
                     ? "border-slate-700 bg-slate-900 text-slate-100 hover:border-sky-500 hover:text-sky-400"
                     : "border-slate-300 bg-white text-slate-800 hover:border-sky-400 hover:text-sky-500"
@@ -378,12 +383,12 @@ export default function PortfolioLanding() {
           </div>
         </header>
 
-        <main className="px-6 pb-12 pt-8 md:px-10 md:pb-16 md:pt-12 transition-colors duration-300">
+        <main className="px-4 sm:px-6 md:px-10 pb-10 sm:pb-12 md:pb-16 pt-6 sm:pt-8 md:pt-12 transition-colors duration-300">
           {/* Hero */}
-          <section className="flex flex-col items-start gap-10 md:flex-row md:items-center md:justify-between">
+          <section className="flex flex-col items-start gap-8 md:gap-10 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
               <p
-                className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.6rem] sm:text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
                   isDark ? "bg-slate-900/70 text-sky-400" : "bg-sky-50 text-sky-600"
                 }`}
               >
@@ -391,15 +396,15 @@ export default function PortfolioLanding() {
                 Portfolio
               </p>
               <h1
-                className={`text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl transition-colors duration-300 ${
+                className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight transition-colors duration-300 ${
                   isDark ? "text-slate-50" : "text-slate-900"
                 }`}
               >
                 Hi, I’m <span className="text-sky-500">Dave Lacson</span>. <br />
-                I design & build digital experiences.
+                I design &amp; build digital experiences.
               </h1>
               <p
-                className={`mt-5 text-sm md:text-base transition-colors duration-300 ${
+                className={`mt-4 sm:mt-5 text-sm md:text-base transition-colors duration-300 ${
                   isDark ? "text-slate-300" : "text-slate-600"
                 }`}
               >
@@ -407,14 +412,14 @@ export default function PortfolioLanding() {
                 <span className="font-medium">frontend development</span>, and{" "}
                 <span className="font-medium">UI/UX</span>—often working with{" "}
                 <span className="font-medium">Photoshop</span> and{" "}
-                <span className="font-medium">Adobe Illustrator</span> to turn ideas
-                into clean, modern layouts for web and mobile.
+                <span className="font-medium">Adobe Illustrator</span> to turn ideas into
+                clean, modern layouts for web and mobile.
               </p>
 
-              <div className="mt-7 flex flex-wrap gap-4">
+              <div className="mt-6 sm:mt-7 flex flex-wrap gap-3 sm:gap-4">
                 <a
                   href="#projects"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sky-500 px-6 py-3 text-sm font-medium text-slate-950 shadow-lg shadow-sky-500/30 transition hover:bg-sky-400"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sky-500 px-5 sm:px-6 py-2.5 sm:py-3 text-sm font-medium text-slate-950 shadow-lg shadow-sky-500/30 transition hover:bg-sky-400"
                 >
                   <FolderGit2 className="h-4 w-4" />
                   View Projects
@@ -425,7 +430,7 @@ export default function PortfolioLanding() {
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=dave.lacson@lccbonline.edu.ph"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-6 py-3 text-sm font-medium transition-colors duration-300 ${
+                  className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-5 sm:px-6 py-2.5 sm:py-3 text-sm font-medium transition-colors duration-300 ${
                     isDark
                       ? "border-slate-700 text-slate-100 hover:border-sky-500 hover:text-sky-400"
                       : "border-slate-300 text-slate-800 hover:border-sky-400 hover:text-sky-500"
@@ -436,7 +441,7 @@ export default function PortfolioLanding() {
                 </a>
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-2 text-[0.7rem]">
+              <div className="mt-6 sm:mt-7 flex flex-wrap gap-2 text-[0.7rem]">
                 <span
                   className={`rounded-full border px-3 py-1 transition-colors duration-300 ${
                     isDark
@@ -444,7 +449,7 @@ export default function PortfolioLanding() {
                       : "border-slate-300 text-slate-600"
                   }`}
                 >
-                  Frontend & React
+                  Frontend &amp; React
                 </span>
                 <span
                   className={`rounded-full border px-3 py-1 transition-colors duration-300 ${
@@ -453,7 +458,7 @@ export default function PortfolioLanding() {
                       : "border-slate-300 text-slate-600"
                   }`}
                 >
-                  UI/UX & Prototyping
+                  UI/UX &amp; Prototyping
                 </span>
                 <span
                   className={`rounded-full border px-3 py-1 transition-colors duration-300 ${
@@ -462,26 +467,26 @@ export default function PortfolioLanding() {
                       : "border-slate-300 text-slate-600"
                   }`}
                 >
-                  Photoshop & Illustrator
+                  Photoshop &amp; Illustrator
                 </span>
               </div>
             </div>
 
             {/* Side card */}
             <div className="mt-4 w-full max-w-sm md:mt-0">
-              <div className="relative overflow-hidden rounded-3xl border border-slate-700 bg-linear-to-br from-sky-500/20 via-slate-900 to-slate-900 p-6 shadow-xl">
-                <div className="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-300">
+              <div className="relative overflow-hidden rounded-3xl border border-slate-700 bg-linear-to-br from-sky-500/20 via-slate-900 to-slate-900 p-5 sm:p-6 shadow-xl">
+                <div className="mb-3 sm:mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-300">
                   Currently
                 </div>
-                <p className="text-sm text-slate-100">
+                <p className="text-xs sm:text-sm text-slate-100">
                   Designing{" "}
-                  <span className="text-sky-400">interfaces & graphics</span>, polishing{" "}
-                  <span className="text-sky-400">UI/UX flows</span>, and experimenting
-                  with <span className="text-sky-400">frontend builds</span> using modern
-                  tools.
+                  <span className="text-sky-400">interfaces &amp; graphics</span>,
+                  polishing <span className="text-sky-400">UI/UX flows</span>, and
+                  experimenting with <span className="text-sky-400">frontend builds</span>{" "}
+                  using modern tools.
                 </p>
-                <div className="mt-5 h-px w-full bg-linear-to-r from-transparent via-slate-600 to-transparent" />
-                <p className="mt-4 text-xs text-slate-300">
+                <div className="mt-4 sm:mt-5 h-px w-full bg-linear-to-r from-transparent via-slate-600 to-transparent" />
+                <p className="mt-3 sm:mt-4 text-[0.7rem] sm:text-xs text-slate-300">
                   Open to graphic design work, frontend collabs, and capstone projects.
                 </p>
               </div>
@@ -489,16 +494,16 @@ export default function PortfolioLanding() {
           </section>
 
           {/* About */}
-          <section id="about" className="mt-16 md:mt-20">
+          <section id="about" className="mt-14 sm:mt-16 md:mt-20">
             <h2
-              className={`text-2xl font-semibold transition-colors duration-300 ${
+              className={`text-xl sm:text-2xl font-semibold transition-colors duration-300 ${
                 isDark ? "text-slate-50" : "text-slate-900"
               }`}
             >
               About
             </h2>
             <p
-              className={`mt-4 max-w-2xl text-sm md:text-base transition-colors duration-300 ${
+              className={`mt-3 sm:mt-4 max-w-2xl text-sm md:text-base transition-colors duration-300 ${
                 isDark ? "text-slate-300" : "text-slate-600"
               }`}
             >
@@ -511,10 +516,10 @@ export default function PortfolioLanding() {
           </section>
 
           {/* Projects */}
-          <section id="projects" className="mt-16 md:mt-20">
-            <div className="flex items-center justify-between gap-2">
+          <section id="projects" className="mt-14 sm:mt-16 md:mt-20">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2
-                className={`text-2xl font-semibold transition-colors duration-300 ${
+                className={`text-xl sm:text-2xl font-semibold transition-colors duration-300 ${
                   isDark ? "text-slate-50" : "text-slate-900"
                 }`}
               >
@@ -530,13 +535,13 @@ export default function PortfolioLanding() {
             </div>
 
             {/* Project card with Figma preview */}
-            <div className="mt-7 rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-md shadow-slate-950/60 transition-colors duration-300">
+            <div className="mt-6 sm:mt-7 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 sm:p-5 shadow-md shadow-slate-950/60 transition-colors duration-300">
               <article className="flex flex-col justify-between">
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-100">
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-100">
                     {activeProject.title}
                   </h3>
-                  <p className="mt-3 text-xs text-slate-300">
+                  <p className="mt-3 text-xs sm:text-sm text-slate-300">
                     {activeProject.description}
                   </p>
 
@@ -571,7 +576,7 @@ export default function PortfolioLanding() {
               </article>
 
               {/* Project carousel controls */}
-              <div className="mt-5 flex items-center justify-between">
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex gap-2">
                   <button
                     type="button"
@@ -605,8 +610,8 @@ export default function PortfolioLanding() {
             </div>
 
             {/* Graphic design grid */}
-            <div className="mt-10">
-              <div className="mb-4 flex items-center justify-between gap-2">
+            <div className="mt-8 sm:mt-10">
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <span
                     className={`inline-flex items-center justify-center rounded-full px-2.5 py-1 transition-colors duration-300 ${
@@ -658,7 +663,7 @@ export default function PortfolioLanding() {
                 </div>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                 {visibleGraphicIndices.map((imgIndex) => {
                   const img = graphicImages[imgIndex];
                   return (
@@ -696,32 +701,32 @@ export default function PortfolioLanding() {
           </section>
 
           {/* Contact */}
-          <section id="contact" className="mt-16 md:mt-20">
+          <section id="contact" className="mt-14 sm:mt-16 md:mt-20">
             <h2
-              className={`text-2xl font-semibold transition-colors duration-300 ${
+              className={`text-xl sm:text-2xl font-semibold transition-colors duration-300 ${
                 isDark ? "text-slate-50" : "text-slate-900"
               }`}
             >
               Contact
             </h2>
             <p
-              className={`mt-4 max-w-xl text-sm md:text-base transition-colors duration-300 ${
+              className={`mt-3 sm:mt-4 max-w-xl text-sm md:text-base transition-colors duration-300 ${
                 isDark ? "text-slate-300" : "text-slate-600"
               }`}
             >
-              Click the business card below to flip it and reveal my contact details and
+              Tap the business card below to flip it and reveal my contact details and
               social links.
             </p>
 
             {/* Left-aligned, same size card */}
-            <div className="mt-8 flex justify-start">
+            <div className="mt-6 sm:mt-8 flex justify-start">
               <BusinessCard isDark={isDark} />
             </div>
           </section>
 
           {/* Footer */}
           <footer
-            className={`mt-16 border-t pt-5 text-xs md:mt-20 transition-colors duration-300 ${
+            className={`mt-14 sm:mt-16 md:mt-20 border-t pt-4 sm:pt-5 text-[0.7rem] sm:text-xs transition-colors duration-300 ${
               isDark
                 ? "border-slate-800 text-slate-500"
                 : "border-slate-200 text-slate-400"
@@ -734,7 +739,7 @@ export default function PortfolioLanding() {
 
       {/* Graphic modal (carousel) */}
       {isGraphicModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-3 sm:px-4">
           <div className="relative w-full max-w-3xl">
             <div className="relative overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 p-3">
               <img
